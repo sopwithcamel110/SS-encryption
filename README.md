@@ -1,12 +1,11 @@
-# Assignment 5: Public Key Cryptography
+# Public Key Cryptography
 
 ## Description
-A showcase of SS Cryptography
+A showcase of SS Cryptography.
 
 ## How to Run
-1. Navigate to the program directory, /ddevise/asgn5/.
-2. Run "make" to create all binaries, or "make EXEC" where EXEC is the binary you would like to create.
-3. Run ./keygen [OPTIONS] to create the public and private keys. Then, encrypt messages with ./encrypt [OPTIONS] and decrypt them with ./decrypt [OPTIONS].
+1. Navigate to the bin folder, or run "make" to create the binaries.
+2. Run ./keygen [OPTIONS] to create the public and private keys. Then, encrypt messages with ./encrypt [OPTIONS] and decrypt them with ./decrypt [OPTIONS].
 
 ## Command Line Options: Keygen
 -b : specifies the minimum bits needed for the public modulus n.
