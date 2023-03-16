@@ -106,10 +106,12 @@ void ss_encrypt_file(FILE *infile, FILE *outfile, const mpz_t n) {
     mpz_t temp;
     mpz_init(temp);
     mpz_sqrt(temp, n);
+
     int k = (mpz_sizeinbase(temp, 2) - 1) / 8;
     uint8_t *block = calloc(k, sizeof(uint8_t));
     block[0] = 0xFF;
     int c = fgetc(infile), i = 1;
+    
     mpz_t buffer;
     mpz_init(buffer);
     while (c != EOF) {
@@ -128,6 +130,7 @@ void ss_encrypt_file(FILE *infile, FILE *outfile, const mpz_t n) {
         ss_encrypt(buffer, buffer, n);
         gmp_fprintf(outfile, "%Zd\n", buffer);
     }
+
     mpz_clear(temp);
     mpz_clear(buffer);
     free(block);
@@ -144,6 +147,7 @@ void ss_decrypt(mpz_t m, const mpz_t c, const mpz_t d, const mpz_t pq) {
 void ss_decrypt_file(FILE *infile, FILE *outfile, const mpz_t d, const mpz_t pq) {
     int k = (mpz_sizeinbase(pq, 2) - 1);
     uint8_t *block = calloc(k, sizeof(uint8_t));
+    
     mpz_t buffer;
     mpz_init(buffer);
     unsigned long numRead = 0;

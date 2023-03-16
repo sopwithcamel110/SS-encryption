@@ -115,6 +115,8 @@ bool is_prime(const mpz_t n, uint64_t iters) {
 
     mpz_sub_ui(nVal, n, 1);
     // nVal = n-1
+
+    // Write n-1 as (2^s)d where d is odd.
     while (mpz_cmp(curr, nVal) <= 0) {
         count++;
         mpz_mod(mod, nVal, curr);
@@ -127,6 +129,7 @@ bool is_prime(const mpz_t n, uint64_t iters) {
     }
     mpz_clear(mod);
     mpz_clear(curr);
+
     mpz_t a, y;
     mpz_init(a);
     mpz_init(y);
@@ -178,6 +181,7 @@ bool is_prime(const mpz_t n, uint64_t iters) {
 void make_prime(mpz_t p, uint64_t bits, uint64_t iters) {
     do {
         mpz_urandomb(p, state, bits);
+	// Ensure bitcount is met and p is odd.
         mpz_setbit(p, bits - 1);
         mpz_setbit(p, 0);
     } while (!is_prime(p, iters));
