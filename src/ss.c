@@ -118,7 +118,7 @@ void ss_encrypt_file(FILE *infile, FILE *outfile, const mpz_t n) {
         if (i >= k) {
             mpz_import(buffer, k, 1, sizeof(block[0]), 1, 0, block);
             ss_encrypt(buffer, buffer, n);
-            gmp_fprintf(outfile, "%Zd\n", buffer);
+            gmp_fprintf(outfile, "%Zx\n", buffer);
             i = 1;
         }
         block[i] = c;
@@ -128,7 +128,7 @@ void ss_encrypt_file(FILE *infile, FILE *outfile, const mpz_t n) {
     if (i != 1) {
         mpz_import(buffer, i, 1, sizeof(block[0]), 1, 0, block);
         ss_encrypt(buffer, buffer, n);
-        gmp_fprintf(outfile, "%Zd\n", buffer);
+        gmp_fprintf(outfile, "%Zx\n", buffer);
     }
 
     mpz_clear(temp);
@@ -151,7 +151,7 @@ void ss_decrypt_file(FILE *infile, FILE *outfile, const mpz_t d, const mpz_t pq)
     mpz_t buffer;
     mpz_init(buffer);
     unsigned long numRead = 0;
-    while (gmp_fscanf(infile, "%Zd\n", buffer) != EOF) {
+    while (gmp_fscanf(infile, "%Zx\n", buffer) != EOF) {
         ss_decrypt(buffer, buffer, d, pq);
         mpz_export(block, &numRead, 1, sizeof(block[0]), 1, 0, buffer);
 
